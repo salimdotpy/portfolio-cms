@@ -1,0 +1,143 @@
+{% extends 'admin/layouts/app.html' %}
+{% block panel %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <form action="{{ url_for('email.setting.update') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="panel-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="mb-4">Email Send Method</label>
+                                <select name="email_method" class="form-control" >
+                                    <option value="{{general.mail_config.name}}">{{general.mail_config.name|upper}}</option>
+                                    {% for i in  ['php', 'stmp', 'sendgrid', 'mailjet'] %}
+                                    {% if general.mail_config.name != i %}
+                                    <option value="{{i}}">{{i|upper}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 text-right">
+                                <h6 class="mb-4">&nbsp;</h6>
+                                <button type="button" data-target="#testMailModal" data-toggle="modal" class="btn btn-info">Send Test Mail</button>
+                            </div>
+                        </div>
+                        <div class="form-row mt-4 d-none configForm" id="smtp">
+                            <div class="col-md-12">
+                                <h6 class="mb-2">SMTP Configuration</h6>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Host <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="e.g. smtp.googlemail.com" name="host" value="{% if general.mail_config.host %}{{general.mail_config.host}}{%endif%}"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Port <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Available port" name="port" value="{% if general.mail_config.port %}{{general.mail_config.port}}{%endif%}"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Encryption</label>
+                                <select class="form-control" name="enc">
+                                    <option value="ssl">SSL</option>
+                                    <option value="tls">TLS</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Username <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Normally your email address" name="username" value="{% if general.mail_config.username %}{{general.mail_config.username}}{%endif%}"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Password <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Normally your email password" name="password" value="{% if general.mail_config.password %}{{general.mail_config.password}}{%endif%}"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-4 d-none configForm" id="sendgrid">
+                            <div class="col-md-12">
+                                <h6 class="mb-2">SendGrid API Configuration</h6>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>App Key <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="SendGrid App key" name="appkey" value="{% if general.mail_config.appkey %}{{general.mail_config.appkey}}{%endif%}"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-4 d-none configForm" id="mailjet">
+                            <div class="col-md-12">
+                                <h6 class="mb-2">Mailjet API Configuration</h6>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Api Public Key <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Mailjet Api Public Key" name="public_key" value="{% if general.mail_config.public_key %}{{general.mail_config.public_key}}{%endif%}"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Api Secret Key <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Mailjet Api Secret Key" name="secret_key" value="{% if general.mail_config.secret_key %}{{general.mail_config.secret_key}}{%endif%}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-block btn-primary mr-2">Update</button>
+                    </div>
+                </form>
+            </div>
+            <!-- card end -->
+        </div>
+
+
+    </div>
+
+
+    <div id="testMailModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Test Mail Setup</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="id">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Sent to <span class="text-danger">*</span></label>
+                                <input type="text" name="email" class="form-control" placeholder="Email Address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endblock%}
+
+
+{% block script %}
+{{super()}}
+    <script>
+        (function ($) {
+            "use strict";
+
+            var method = '{{ general.mail_config.name }}';
+            emailMethod(method);
+            $('select[name=email_method]').on('change', function() {
+                var method = $(this).val();
+                emailMethod(method);
+            });
+
+            function emailMethod(method){
+                $('.configForm').addClass('d-none');
+                if(method != 'php') {
+                    $(`#${method}`).removeClass('d-none');
+                }
+            }
+
+        })(jQuery);
+
+    </script>
+{% endblock %}

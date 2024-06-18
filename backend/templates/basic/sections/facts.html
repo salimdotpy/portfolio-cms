@@ -1,0 +1,29 @@
+<section id="facts" class="facts">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|upper}}
+    {%- endmacro %}
+    {% set fact = getContent('facts.content', true) %}
+    {% set facts = getContent('facts.element', false, None,true) %}
+    <div class="container">
+        <div class="section-title">
+            <h2>{{fact.data_values.heading}}</h2>
+            <p>{{fact.data_values.sub_heading}}</p>
+        </div>
+
+        <div class="row no-gutters">
+            <!-- {% set icon = ['bi-emoji-smile','bi-journal-richtext','bi-headset','bi-people'] %} -->
+            {% for ele in facts %}
+            <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="{{loop.index}}00">
+                <div class="count-box">
+                    <!-- <i class="bi {{icon[loop.index-1]}}"></i> -->
+                    {{ele.data_values.icon|safe}}
+                    <span data-purecounter-start="0" data-purecounter-end="{{ele.data_values.count}}" data-purecounter-duration="1"
+                        class="purecounter"></span>
+                    <p><strong>{{ele.data_values.fact}}</strong></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>

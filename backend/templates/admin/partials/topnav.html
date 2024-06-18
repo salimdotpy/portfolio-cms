@@ -1,0 +1,59 @@
+<div class="modal fade" id="searchModal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px;">
+    <div class="modal-content">
+      <!-- Modal Body -->
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; font-size: medium; width: 100%;">
+          <i class="fa fa-search" style="color: #ccc;"></i>
+          <input type="search" placeholder="Search&hellip;"
+            style="border: none; outline: none; width: 100%; padding-left: 8px;" onkeyup="search(this)">
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0px; max-height: 200px; overflow: auto;">
+        <div class="list-group" style="margin: 0px;" id="searchData">
+          <h4 align="center" style="padding: 30px;">No search result!</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav>
+  <div class="navbar_left">
+    <button class="hidden-xs hidden-sm" id="toggle"><i class="fa fa-bars"></i></button>
+    <button class="hidden-md hidden-lg" id="mobile"><i class="fa fa-bars"></i></button>
+    <button class="">
+      <i class="fullscreen fa fa-expand" onclick="openFullscreen(this);"></i>
+      <i class="fullscreen fa fa-compress" style="display: none" onclick="closeFullscreen(this);"></i>
+    </button>
+  </div>
+  <ul class="navbar_right">
+    <li><a href="#searchModal" data-toggle="modal"><i class="fa fa-search"></i></a></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-bell note"></i>
+      </a>
+      <div class="dropdown-menu panel panel-default dropdown-menu-right" style="padding: 0; width: 250px">
+        <div class="panel-heading" style="background: #fff">
+          <h5 style="padding: 0; margin: 0"><b>Notification</b></h5>
+          <span>No unread notification found</span>
+        </div>
+        <div class="list-group panel-body tiny-scroll" style="height: 200px; overflow-y: auto; padding: 0">
+
+        </div>
+        <div class="panel-footer text-center" style="background: #fff; border: #ddd solid 0px; border-top-width: .5px">
+          <a href="">View all notification</a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown user">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-user"></i> <small hidden="hidden" style="font-size: small">Admin</small>
+      </a>
+      <ul role="menu" class="dropdown-menu dropdown-menu-right d-mode nav-divider">
+        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a href=""><i class="fa fa-lock"></i> Password</a></li>
+        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

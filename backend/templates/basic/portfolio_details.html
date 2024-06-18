@@ -1,0 +1,58 @@
+{% extends 'basic/layouts/master.html' %}
+{% block content %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+  
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>Portfoio Details</h2>
+            <ol>
+              <li><a href="{{url_for('home')}}">Home</a></li>
+              <li>Portfoio Details</li>
+            </ol>
+          </div>
+  
+        </div>
+      </section><!-- End Breadcrumbs -->
+  
+      <!-- ======= Portfolio Details Section ======= -->
+      <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+  
+          <div class="row gy-4">
+  
+            <div class="col-lg-8">
+              <div class="portfolio-details-slider swiper">
+                <div class="swiper-wrapper align-items-center">
+                  <div class="swiper-slide">
+                    <img src="{{getImage('assets/images/frontend/portfolio/'+data.data_values.image_one)}}" alt="">
+                  </div>
+  
+                  <div class="swiper-slide">
+                    <img src="{{getImage('assets/images/frontend/portfolio/'+data.data_values.image_two)}}" alt="">
+                  </div>
+  
+                  <div class="swiper-slide">
+                    <img src="{{getImage('assets/images/frontend/portfolio/'+data.data_values.image_three)}}" alt="">
+                  </div>
+  
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+  
+            <div class="col-lg-4">
+              <div class="portfolio-info">
+                <h3>Project information</h3>
+                {{data.data_values.portfolio_info|safe}}
+              </div>
+              <div class="portfolio-description">
+                {{data.data_values.portfolio_description|safe}}
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </section><!-- End Portfolio Details Section -->
+{% endblock %}

@@ -1,0 +1,173 @@
+{
+    "hero": {
+        "builder": true,
+        "no_selection":true,
+        "name": "Hero Section",
+        "content": {
+            "images":{
+                "image":{
+                    "size":false
+                }
+            },
+            "name": "text",
+            "skills": "select"
+        }
+    },
+    "about": {
+        "builder": true,
+        "name": "About Section",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"600x600"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text",
+            "skill": "text",
+            "description": "textarea"
+
+        },
+        "element": {
+            "info": "text",
+            "value": "text",
+            "modal": true
+        }
+    },
+    "facts": {
+        "builder": true,
+        "name": "Facts Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element":{
+            "fact":"text",
+            "count": "text",
+            "icon":"icon",
+            "modal":true
+        }
+    },
+    "skills": {
+        "builder": true,
+        "name": "Skills Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element":{
+            "skill": "text",
+            "skill_level": "text",
+            "modal":true
+        }
+    },
+    "resume": {
+        "builder": true,
+        "name": "Resume Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element": {
+            "resume_title": "text",
+            "resume_item": "textarea-nic",
+            "modal": false
+        }
+    },
+    "project": {
+        "builder": true,
+        "name": "Project Section",
+        "content": {
+            "heading": "text",
+            "category": "select",
+            "sub_heading": "textarea"
+        },
+        "element": {
+            "images":{
+                "image_one":{
+                    "size":false
+                }
+            },
+            "title": "text",
+            "category": "text",
+            "description": "textarea",
+            "github_link": "text",
+            "demo_link": "text",
+            "modal": false
+        }
+    },
+    "portfolio": {
+        "builder": true,
+        "name": "Portfolio Section",
+        "content": {
+            "heading": "text",
+            "category": "select",
+            "sub_heading": "textarea"
+        },
+        "element": {
+            "images":{
+                "image_one":{
+                    "size":"800×600"
+                },
+                "image_two":{
+                    "size":"800×600"
+                },
+                "image_three":{
+                    "size":"800×600"
+                }
+            },
+            "portfolio_link": "text",
+            "portfolio_category": "text",
+            "portfolio_info": "textarea-nic",
+            "portfolio_description": "textarea-nic",
+            "modal": false
+        }
+    },
+    "services": {
+        "builder": true,
+        "name": "Services Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element": {
+            "icon": "icon",
+            "title": "text",
+            "description": "textarea",
+            "modal": true
+        }
+    },
+    "testimonials": {
+        "builder": true,
+        "name": "Testimonials Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element":{
+            "images":{
+                "image":{
+                    "size":"400x400"
+                }
+            },
+            "name":"text",
+            "designation":"text",
+            "say":"textarea",
+            "modal":true
+        }
+    },
+    "contact": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Contact Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "text",
+            "location": "text",
+            "button_text": "text",
+            "email": "text",
+            "phone": "text",
+            "map_source": "text"
+        }
+    }
+}

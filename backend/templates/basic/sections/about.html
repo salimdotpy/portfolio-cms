@@ -1,0 +1,44 @@
+<section id="about" class="about">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|title}}
+    {%- endmacro %}
+    {% set about = getContent('about.content', true) %}
+    {% set abouts = getContent('about.element', false, None,true) %}
+  <div class="container">
+
+      <div class="section-title">
+          <h2>{{__(about.data_values.heading)}}</h2>
+          <p>{{__(about.data_values.sub_heading)}}</p>
+      </div>
+
+      <div class="row">
+          <div class="col-lg-4" data-aos="fade-right">
+              <img src="{{getImage('assets/images/frontend/about/'+about.data_values.image)}}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+              <h3>{{__(about.data_values.skill)}}</h3>
+              <p class="fst-italic">
+                {{__(about.data_values.description)}}
+              </p>
+              <div class="row">
+                  <div class="col-lg-6">
+                      <ul>
+                        {% for ele in abouts %}
+                        <li><i class="bi bi-chevron-right"></i> <strong>{{ele.data_values.info}}:</strong>
+                            <span>{{ele.data_values.value}}</span></li>
+                        {% endfor %}
+                      </ul>
+                  </div>
+              </div>
+              <p class="visually-hidden">
+                  Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt
+                  adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis.
+                  Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus
+                  itaque neque. Aliquid amet quidem ut quaerat cupiditate. Ab et eum qui repellendus omnis
+                  culpa magni laudantium dolores.
+              </p>
+          </div>
+      </div>
+
+  </div>
+</section>

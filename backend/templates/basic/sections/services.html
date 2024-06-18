@@ -1,0 +1,25 @@
+<section id="services" class="services">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|title}}
+    {%- endmacro %}
+    {% set service = getContent('services.content', true) %}
+    {% set services = getContent('services.element', false, None,true) %}
+    <div class="container">
+
+        <div class="section-title">
+            <h2>{{__(service.data_values.heading)}}</h2>
+            <p>{{__(service.data_values.sub_heading)}}</p>
+        </div>
+
+        <div class="row">
+            {% for ele in services %}
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" {%if loop.index >= 3%}data-aos-delay="{{loop.index-2}}00"{%endif%}>
+                <div class="icon">{{ele.data_values.icon|safe}}</div>
+                <h4 class="title"><a href="">{{ele.data_values.title}}</a></h4>
+                <p class="description">{{ele.data_values.description}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>

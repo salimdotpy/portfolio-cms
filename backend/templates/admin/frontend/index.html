@@ -1,0 +1,524 @@
+{% extends 'admin/layouts/app.html' %}
+
+{% block style_lib %}
+<link rel="stylesheet" href="{{url_for('static',filename='assets/admin/css/bootstrap-iconpicker.min.css')}}">
+<!-- data-table -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/jquery.dataTables.css')}}">
+{% endblock %}
+
+{% block panel %}
+
+{% macro __(s) -%}
+{{s|replace('_',' ')|title}}
+{%- endmacro %}
+{% if section.content %}
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+                <form action="{{url_for('sections.content')}}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="key" value="{{key}}">
+                    <input type="hidden" name="type" value="content">
+                    <div class="row">
+                        {% for k, item in section.content.items() %}
+                            {% if k == 'images' %}
+                                {% for imgKey, image in item.items() %}
+                                    <div class="col-md-4">
+                                        <input type="hidden" name="has_image" value="1">
+                                        <div class="form-group">
+                                            <label>{{__(imgKey)}}</label>
+                                            <div class="image-upload">
+                                                <div class="">
+                                                     <img src="{{getImage('assets/images/frontend/'+key+'/'+content.data_values[imgKey], section.content.images[imgKey].size)}}" width="100%" class="img-thumbnail" style="height: 250px;">
+                                                </div>
+                                                <div>
+                                                    <input type="file" class="hidden form-control profilePicUpload" name="image_input[{{ imgKey }}]" id="profilePicUpload{{ loop.index }}" accept=".png, .jpg, .jpeg" onchange="imgs(this, $(this).parent().parent())"><br>
+                                                        <label for="profilePicUpload{{loop.index}}" class="btn btn-primary btn-block">Upload {{ __(imgKey) }}</label>
+                                                        <small class="">Supported files: <b>jpeg, jpg, png</b>.
+                                                            {% if section.content.images[imgKey].size %}
+                                                                | Will be resized to:
+                                                                <b>{{section.content.images[imgKey].size}}</b>
+                                                                px.
+                                                            {% endif %}
+                                                        </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor%}
+                                <div class="{%if imgCount > 1%}{%else%}col-md-8{%endif%}">
+                            {% else %}
+                                {% if k != 'images' %}
+                                    {% if item == 'icon' %}
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="">{{__(k)}}</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control icon" name="{{k}}" value="{{content.data_values[k]|safe}}" required>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-info iconPicker" data-icon="
+                                                        {% if content.data_values[k] %}content.data_values[k][10:-6]{% else %}las la-home{% endif %}" role="iconpicker"></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% elif item == 'textarea' %}
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label  font-weight-bold">{{__(k)}}</label>
+                                                <textarea rows="10" class="form-control" placeholder="{{__(k)}}" name="{{k}}" required>{{content.data_values[k]|safe}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    {% elif item == 'textarea-nic' %}
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label  font-weight-bold">{{__(k)}}</label>
+                                                <textarea rows="10" class="form-control nicEdit" placeholder="{{__(k)}}" name="{{k}}">{{content.data_values[k]}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    {% elif item == 'select' %}
+                                    <div class="col-md-12">
+                                        <div class="form-group select-ion">
+                                            <label class="form-control-label font-weight-bold">{{__(k)}}</label>
+                                            <small class="ml-2 mt-2 text-facebook">Separate multiple keywords by <code>,</code>comma or <code>enter</code> key</small>
+                                            <select name="keywords[]" class="form-control select2-auto-tokenize"  multiple="multiple" required>
+                                                {% if content.data_values.keywords %}
+                                                    {% for option in content.data_values.keywords %}
+                                                        <option value="{{option}}" selected>{{ option }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {% elif k == 'select' %}
+                                        {% set selectName = item.name %}
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label  font-weight-bold">{{__(selectName)}}</label>
+                                                <select class="form-control" name="{{selectName}}">
+                                                    {% for selectItemKey, selectOption in item.options.items() %}
+                                                        <option value="{{selectItemKey}}"{% if content.data_values[selectName] == selectItemKey %} selected {% endif %}>{{selectOption}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="">{{__(k)}}
+                                                </label>
+                                                <input type="text" class="form-control" placeholder="{{__(k)|safe}}" name="{{k}}" value="{{content.data_values[k]|safe}}" required/>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if imgCount %}</div>{%endif%}
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if section.element %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                {% if section.element.images %}
+                                <th>Image</th>
+                                {% endif %}
+                                {% for k, type in section.element.items() %}
+                                {% if k != 'modal' %}
+                                {% if type=='text' or type=='icon' %}
+                                <th> {{ __(k) }} </th>
+                                {% elif k=='select' %}
+                                <th>{{ __(section.element[k].name) }}</th>
+                                {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                                <th style="min-width: 120px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            {% for data in elements|reverse %}
+                            <tr>
+                                <td data-label="SL">{{ loop.index }}</td>
+                                {% if section.element.images %}
+                                {% set firstKey = section.element.images.keys()|first %}
+                                <td data-label="Image">
+                                    <div class="customer-details d-block">
+                                        <a href="javascript:void(0)" class="thumb">
+                                            <img class="img-thumbnail" width="100"
+                                                src="{{getImage('assets/images/frontend/'+key+'/'+data.data_values[firstKey],section.element.images[firstKey].size) }}"
+                                                alt="image">
+                                        </a>
+                                    </div>
+                                </td>
+                                {% endif %}
+                                {% for k, type in section.element.items() %}
+                                {% if k != 'modal' %}
+                                {% if type == 'text' or type == 'icon' %}
+                                {% if type =='icon' %}
+                                <td data-label="Icon">{{data.data_values[k]|safe}}</td>
+                                {% else %}
+                                <td data-label="{{k}}">{{data.data_values[k]|safe}}</td>
+                                {% endif %}
+                                {% elif k == 'select' %}
+                                {% set dataVal = section.element[k].name %}
+                                <td data-label="{{section.element[k].name}}">{{data.data_values[dataVal]}}</td>
+                                {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                                <td data-label="Action">
+                                    {% if section.element.modal %}
+                                    {% set images = [] %}
+                                    {% if section.element.images %}
+                                    {% for imgKey, imgs in section.element.images.items() %}
+                                    {% if
+                                    images.append(getImage('assets/images/frontend/'+key+'/'+data.data_values[imgKey],
+                                    section.element.images[imgKey].size)) %}{% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    <button class="icon-btn btn btn-primary updateBtn" data-id="{{data.id}}"
+                                        data-all='{{data.data_values|tojson}}' {% if section.element.images %}
+                                        data-images='{{images|tojson}}' {% endif %}>
+                                        <i class="la la-pencil-alt"></i>
+                                    </button>
+                                    {% else %}
+                                    <a href="{{url_for('sections.element',key=key, id=data.id)}}" class="icon-btn btn btn-info"><i
+                                            class="la la-pencil-alt"></i></a>
+                                    {% endif %}
+                                    <button class="icon-btn btn btn-danger removeBtn" data-id="{{ data.id }}"><i
+                                            class="la la-trash"></i></button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td class="text-muted text-center" colspan="100%">{{emptyMessage}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title"> Add New {{key}} Item</h5>
+            </div>
+            <form action="{{url_for('sections.content')}}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                <input type="hidden" name="type" value="element">
+                <input type="hidden" name="key" value="{{key}}">
+                <div class="modal-body">
+                    {% for k, type in section.element.items() %}
+                    {% if k != 'modal' %}
+                    {% if type == 'icon' %}
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control icon" name="{{k}}" required>
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-outline-secondary iconPicker" ata-icon="las la-home"
+                                    role="iconpicker"></button>
+                            </div>
+                        </div>
+                    </div>
+                    {% elif k == 'select' %}
+                    <div class="form-group">
+                        <label>{{__(section.element[k].name)}}</label>
+                        <select class="form-control" name="{{section.element[k].name}}">
+                            {% for selectKey, options in section.element[k].options.items() %}
+                            <option value="{{selectKey}}">{{options}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% elif k == 'images' %}
+                    {% for imgKey, image in type.items() %}
+                    <input type="hidden" name="has_image" value="1">
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <div class="image-upload">
+                            <div class="">
+                                <img src="{{getImage('/',section.element.images[imgKey].size)}}" width="100%"
+                                    class="img-thumbnail" style="height: 250px;">
+                            </div>
+                            <div>
+                                <input type="file" class="profilePicUpload hidden" name="image_input[{{imgKey}}]"
+                                    id="addImage{{loop.index}}" accept=".png, .jpg, .jpeg" onchange="imgs(this, $(this).parent().parent())"><br>
+                                <label for="addImage{{loop.index}}" class="btn btn-success btn-block">{{imgKey}}</label>
+                                <small>Supported files: <b>jpeg, jpg, png</b>.
+                                    {% if section.element.images[imgKey].size %}
+                                    | Will be resized to: <b>{{section.element.images[imgKey].size}}</b> px.
+                                    {% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% elif type =='textarea' %}
+
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <textarea rows="4" class="form-control" placeholder="{{__(k)}}" name="{{k}}" required></textarea>
+                    </div>
+
+                    {% elif type == 'textarea-nic' %}
+
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <textarea rows="4" class="form-control nicEdit" placeholder="{{__(k)}}" name="{{k}}"></textarea>
+                    </div>
+
+                    {% else %}
+
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <input type="text" class="form-control" placeholder="{{__(k)}}" name="{{k}}" required />
+                    </div>
+
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="updateBtn" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title"> Update {{__(key)}} Item</h5>
+            </div>
+            <form action="{{url_for('sections.content')}}" class="edit-route" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                <input type="hidden" name="key" value="{{key}}">
+                <input type="hidden" name="type" value="element">
+                <input type="hidden" name="id">
+                <div class="modal-body">
+                    {% for k, type in section.element.items() %}
+                    {% if k !='modal' %}
+                    {% if type == 'icon' %}
+
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control icon" name="{{k}}" required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-outline-secondary iconPicker" data-icon="las la-smile"
+                                    role="iconpicker"></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    {% elif k == 'select' %}
+                    <div class="form-group">
+                        <label>{{__(section.element[k].name)}}</label>
+                        <select class="form-control" name="{{section.element[k].name}}">
+                            {% for selectKey, options in section.element[k].options.items() %}
+                            <option value="{{selectKey}}">{{options}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {% elif k == 'images' %}
+                    {% for imgKey, image in type.items() %}
+                    <input type="hidden" name="has_image" value="1">
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <div class="image-upload">
+                            <div class="">
+                                <img src="{{getImage('/',section.element.images[imgKey].size)}}" width="100%"
+                                    class="img-thumbnail imageModalUpdate{{loop.index}}" style="height: 250px;">
+                            </div>
+                            <div>
+                                <input type="file" class="profilePicUpload hidden" name="image_input[{{imgKey}}]"
+                                    id="updateImage{{loop.index}}" accept=".png, .jpg, .jpeg" onchange="imgs(this, $(this).parent().parent())"><br>
+                                <label for="updateImage{{loop.index}}" class="btn btn-success btn-block">{{__(imgKey)}}</label>
+                                <small>Supported files: <b>jpeg, jpg, png</b>.
+                                    {% if section.element.images[imgKey].size %}
+                                    | Will be resized to: <b>{{section.element.images[imgKey].size}}</b> px.
+                                    {% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% elif type == 'textarea' %}
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <textarea rows="4" class="form-control" placeholder="{{__(k)|e}}" name="{{k}}" required></textarea>
+                    </div>
+
+                    {% elif type == 'textarea-nic' %}
+
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <textarea rows="4" class="form-control nicEdit" placeholder="{{__(k)|e}}" name="{{k}}"></textarea>
+                    </div>
+
+                    {% else %}
+                    <div class="form-group">
+                        <label>{{__(k)}}</label>
+                        <input type="text" class="form-control" placeholder="{{__(k)|e}}" name="{{k}}" required />
+                    </div>
+
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="removeModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Confirmation</h5>
+            </div>
+            <form action="{{url_for('remove')}}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                <input type="hidden" name="id">
+                <div class="modal-body">
+                    <p class="font-weight-bold">Are you sure to delete this item? Once deleted can not be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{# if section element end #}
+{% endblock %}
+
+{% block breadcrumb_plugins %}
+{% if section.element %}{% if section.element.modal %}
+<a href="javascript:void(0)" class="btn btn-sm btn-primary addBtn"><i class="fa fa-fw fa-plus"></i>Add New</a>
+{% else %}
+<a href="{{url_for('sections.element',key=key,id=0)}}" class="btn btn-sm btn-success"><i
+        class="fa fa-fw fa-plus"></i>Add New</a>
+{% endif %}
+{% endif %}{% endblock %}
+
+{% block script_lib %}
+<script src="{{ url_for('static',filename='assets/admin/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
+<!-- data-table -->
+<script src="{{url_for('static', filename='js/jquery.dataTables.js')}}"></script>
+{% endblock %}
+
+
+{% block script %}
+{{super()}}
+<script>
+    (function ($) {
+        "use strict";
+        $('.table').DataTable();
+        $('.table_wrapper').addClass('table-responsive');
+        $('.removeBtn').on('click', function () {
+            var modal = $('#removeModal');
+            modal.find('input[name=id]').val($(this).data('id'))
+            modal.modal('show');
+        });
+
+        $('.addBtn').on('click', function () {
+            var modal = $('#addModal');
+            modal.modal('show');
+        });
+
+        $('.updateBtn').on('click', function () {
+            var modal = $('#updateBtn');
+            modal.find('input[name=id]').val($(this).data('id'));
+
+            var obj = $(this).data('all');
+            var images = $(this).data('images');
+            if (images) {
+                for (var i = 0; i < images.length; i++) {
+                    var imgloc = images[i];
+                    $(`.imageModalUpdate${i + 1}`).attr("src", imgloc);
+                }
+            }
+            $.each(obj, function (index, value) {
+                if(value.startsWith('<i class="')){
+                    modal.find('[data-icon="las la-home"]').attr('data-icon',value.slice(10,-6));
+                    modal.find('[name=' + index + ']').val(value);
+                }else
+                modal.find('[name=' + index + ']').val(value);
+            });
+
+            modal.modal('show');
+        });
+
+        $('#updateBtn').on('shown.bs.modal', function (e) {
+            $(document).off('focusin.modal');
+        });
+        $('#addModal').on('shown.bs.modal', function (e) {
+            $(document).off('focusin.modal');
+        });
+
+        $('.iconPicker').iconpicker().on('change', function (e) {
+            $(this).parent().siblings('.icon').val(`<i class="${e.icon}"></i>`);
+        });
+    })(jQuery);
+</script>
+<script>
+    $('.select2>.select2-container').css('width', '100%');
+    (function ($) {
+        "use strict";
+        $('.select2-auto-tokenize').select2({
+            dropdownParent: $('.select-ion'),
+            tags: true,
+            tokenSeparators: [',']
+        }); 
+    })(jQuery);
+</script>
+{% endblock %}

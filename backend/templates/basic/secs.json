@@ -1,0 +1,270 @@
+{
+    "banner": {
+        "builder": true,
+        "no_selection":true,
+        "name": "Banner Section",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"1920x1080"
+                },
+                "thumb_image":{
+                    "size":"400x315"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text",
+            "button_text": "text",
+            "button_url": "text"
+        }
+    },
+    "feature": {
+        "builder": true,
+        "name": "Feature Section",
+        "element": {
+            "heading": "text",
+            "sub_heading": "text",
+            "icon": "icon",
+            "modal": true
+        }
+    },
+    "how_to_work": {
+        "builder": true,
+        "name": "How To Work",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"1920x1080"
+                }
+            },
+            "title": "text",
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element":{
+            "title":"text",
+            "icon":"icon",
+            "modal":true
+        }
+    },
+    "client": {
+        "builder": true,
+        "name": "Client Section",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"985x700"
+                }
+            },
+            "title": "text",
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element":{
+            "name":"text",
+            "designation":"text",
+            "say":"textarea",
+            "modal":true
+        }
+    },
+    "service": {
+        "builder": true,
+        "name": "Service Section",
+        "element": {
+            "images":{
+                "image_one":{
+                    "size":"640x460"
+                },
+                "image_two":{
+                    "size":"640x460"
+                },
+                "image_three":{
+                    "size":"640x460"
+                }
+            },
+            "icon_one":"icon",
+            "heading_one": "text",
+            "sub_heading_one": "textarea",
+            "icon_two":"icon",
+            "heading_two": "text",
+            "sub_heading_two": "textarea",
+            "icon_three":"icon",
+            "heading_three": "text",
+            "sub_heading_three": "textarea",
+            "modal": false
+        }
+    },
+    "counter": {
+        "builder": true,
+        "name": "Counter Section",
+        "element": {
+            "heading": "text",
+            "number": "text",
+            "icon": "icon",
+            "modal": true
+        }
+    },
+    "policy_pages": {
+        "builder": true,
+        "no_selection":true,
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
+            "details": "textarea-nic",
+            "modal": false
+        }
+    },
+    "faq": {
+        "builder": true,
+        "name": "FAQ Section",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"770x800"
+                }
+            },
+            "title": "text",
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element": {
+            "question": "text",
+            "answer": "textarea-nic",
+            "modal": false
+        }
+    },
+    "blog": {
+        "builder": true,
+        "name": "Blog Section",
+        "content": {
+            "title": "text",
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element": {
+            "images":{
+                "image":{
+                    "size":"750x500"
+                }
+            },
+            "title": "text",
+            "description": "textarea-nic",
+            "modal": false
+        }
+    },
+    "crypto_price": {
+        "builder": true,
+        "name": "Crypto Price Section",
+        "element": {
+            "images":{
+                "image":{
+                    "size":"95x95"
+                }
+            },
+            "currency": "text",
+            "price": "text",
+            "modal":true
+        }
+    },
+    "cta": {
+        "builder": true,
+        "name": "Call To Action",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"1920x1080"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text",
+            "button_text": "text",
+            "button_url": "text"
+        }
+    },
+    "top_user": {
+        "builder": true,
+        "name": "Top User Section",
+        "content": {
+            "title": "text",
+            "heading": "text",
+            "sub_heading": "textarea"
+        },
+        "element":{
+            "images":{
+                "image":{
+                    "size":"460x530"
+                }
+            },
+            "name":"text",
+            "transaction_amount":"text",
+            "modal":true
+        }
+    },
+    "sponsor": {
+        "builder": true,
+        "name": "Sponsor Section",
+        "element": {
+            "title": "text",
+            "images":{
+                "image":{
+                    "size":"140x150"
+                }
+            },
+            "modal": true
+        }
+    },
+    "contact_us": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Contact Us",
+        "content": {
+            "title": "text",
+            "button_text": "text",
+            "email": "text",
+            "phone": "text",
+            "address": "text",
+            "map_source": "text"
+        }
+    },
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Footer Section",
+        "content": {
+            "website_footer": "text",
+            "about": "text"
+        }
+    },
+    "header": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Header Section",
+        "content": {
+            "mobile": "text",
+            "email": "text"
+        }
+    },
+    "social_link": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Social Link Section",
+        "element": {
+            "social_name": "text",
+            "social_url": "text",
+            "icon": "icon",
+            "modal": true
+        }
+    },
+    "auth_background_iamge": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Authentication Image",
+        "content": {
+            "images":{
+                "image":{
+                    "size":"1920x1080"
+                }
+            }
+        }
+    }
+}

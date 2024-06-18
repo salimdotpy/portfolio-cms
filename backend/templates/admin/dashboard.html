@@ -1,0 +1,100 @@
+{% extends 'admin/layouts/app.html' %}
+{% block panel %}
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-lg-3 slideInDown animated">
+        <div class="panel panel-success" style="">
+            <div class="panel-heading">
+                <div class="row black-text">
+                    <div class="col-xs-3"><i
+                            class="fa fa-fw fa-user fa-4x green-text text-lighten-2"></i></div>
+                    <div class="col-xs-9 text-right green-text text-bold">
+                        <span class="h1 text-bold">{{widget.total_users}}</span><br>
+                        <span class="">Total User</span>
+                    </div>
+                </div>
+            </div>
+            <a href="">
+                <div class="panel-footer">
+                    <span class="pull-left">View all</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-lg-3 slideInDown animated">
+        <div class="panel panel-danger shadow-all-o">
+            <div class="panel-heading">
+                <div class="row black-text">
+                    <div class="col-xs-3"><i class="fa fa-fw fa-bell fa-4x red-text text-lighten-2"></i>
+                    </div>
+                    <div class="col-xs-9 text-right red-text text-bold">
+                        <span class="h1 text-bold">0</span><br>
+                        <span>VIEW NOTICE</span>
+                    </div>
+                </div>
+            </div>
+            <a href="">
+                <div class="panel-footer">
+                    <span class="pull-left">All Notice</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-lg-3 slideInDown animated">
+        <div class="panel panel-info shadow-all-o">
+            <div class="panel-heading">
+                <div class="row black-text">
+                    <div class="col-xs-3"><i
+                            class="fa fa-fw fa-graduation-cap fa-4x blue-text text-lighten-2"></i></div>
+                    <div class="col-xs-9 text-right blue-text text-bold">
+                        <span class="h1 text-bold">0</span><br>
+                        <span class="">TOTAL STUDENTS</span>
+                    </div>
+                </div>
+            </div>
+            <a href="">
+                <div class="panel-footer">
+                    <span class="pull-left">All Students</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-lg-3 slideInDown animated">
+        <div class="panel panel-warning shadow-all-o">
+            <div class="panel-heading">
+                <div class="row black-text">
+                    <div class="col-xs-3"><i class="fa fa-fw fa-user fa-4x orange-text text-lighten-2"></i>
+                    </div>
+                    <div class="col-xs-9 text-right orange-text text-bold">
+                        <span class="h1 text-bold">0</span><br>
+                        <span class="">TOTAL STAFF</span>
+                    </div>
+                </div>
+            </div>
+            <a href="">
+                <div class="panel-footer">
+                    <span class="pull-left">All Staff</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel">
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

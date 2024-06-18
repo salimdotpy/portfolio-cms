@@ -1,0 +1,109 @@
+<div class="side-flow" id="aside"></div>
+<aside>
+    <div class="side-header">
+        <a href="{{url_for('dashboard')}}" class="side-main-logo">
+            <img src="{{getImage(imagePath()['logoIcon']['path']+'/logo.png')}}" alt="site logo" width="100%" id="logo" style="padding: 15px">
+            <img src="{{getImage(imagePath()['logoIcon']['path']+'/favicon.png')}}" alt="site logo" width="100%" id="logo-sm" style="padding: 15px">
+        </a>
+    </div>
+    <ul class="side-nav tiny-scroll">
+        <li class="{{menuActive('dashboard')}}">
+            <a href="{{url_for('dashboard')}}">
+                <i class="fa fa-home menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="side-nav-title">Settings</li>
+        <li class="{{menuActive('setting.index')}}">
+            <a href="{{url_for('setting.index')}}">
+                <i class="fa fa-life-ring menu-icon"></i>
+                <span class="menu-title">General Setting</span>
+            </a>
+        </li>
+        <li class="{{menuActive('setting.logo.icon')}}">
+            <a href="{{ url_for('setting.logo.icon') }}">
+                <i class="fa fa-image menu-icon"></i>
+                <span class="menu-title">Logo & Favicon</span>
+            </a>
+        </li>
+        <li class="{{menuActive('seo')}}">
+            <a href="{{ url_for('seo') }}">
+                <i class="fa fa-globe menu-icon"></i>
+                <span class="menu-title">SEO Manager</span>
+            </a>
+        </li>
+        <li class="">
+            <a data-toggle="collapse" data-target="#email-manage" class="dropdown">
+                <i class="fa fa-envelope-o menu-icon"></i>
+                <span class="menu-title">Email Manager</span>
+            </a>
+            <ul class="sub-menu collapse {%if menuActive('email-template') or menuActive('edit')%} in {%endif%}" id="email-manage">
+                <li class="sub-menu-item {{menuActive('email.template.global')}}"><a href="{{ url_for('email.template.global') }}"><i class="fa fa-dot-circle-o"></i> Global Template</a></li>
+                <li class="sub-menu-item {{menuActive('email.template.index')}} {{menuActive('edit')}}"><a href="{{ url_for('email.template.index') }}"><i class="fa fa-dot-circle-o"></i> Email Templates</a></li>
+                <li class="sub-menu-item {{menuActive('email.template.setting')}}"><a href="{{ url_for('email.template.setting') }}"><i class="fa fa-dot-circle-o"></i> Email Configure</a></li>
+            </ul>
+        </li>
+        <li class="side-nav-title">Frontend Manager</li>
+        <li class="hidden">
+            <a href="">
+                <i class="fa fa-html5 menu-icon"></i>
+                <span class="menu-title">Manage Templates</span>
+            </a>
+        </li>
+        <li class="{{menuActive('manage.pages')}}">
+            <a href="{{url_for('manage.pages')}}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Manage Pages</span>
+            </a>
+        </li>
+        <li class="">
+            <a data-toggle="collapse" data-target="#manage-sec" class="dropdown">
+                <i class="fa fa-html5 menu-icon"></i>
+                <span class="menu-title">Manage Section</span>
+            </a>
+            <ul class="sub-menu collapse {%if menuActive('sections') or menuActive('sections.element')%} in {%endif%}" id="manage-sec">
+            {% for k, secs in getPageSections(true).items() %}
+                {% if secs.builder %}
+                    <li class="sub-menu-item {{menuActive(k)}}">
+                        <a href="{{url_for('sections', key=k)}}"><i class="fa fa-dot-circle-o"></i> {{ secs.name }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </li>
+        <li class="side-nav-title">Extra</li>   
+        <li>
+            <a href="">
+                <i class="fa fa-coffee menu-icon"></i>
+                <span class="menu-title">GDPR Cookie</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-server menu-icon"></i>
+                <span class="menu-title">System Information</span>
+            </a>
+        </li>
+        <li class="{{menuActive('setting.custom.css')}}">
+            <a href="{{ url_for('setting.custom.css') }}">
+                <i class="fa fa-css3 menu-icon"></i>
+                <span class="menu-title">Custom CSS</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-paint-brush menu-icon"></i>
+                <span class="menu-title">Clear Cache</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-bug menu-icon"></i>
+                <span class="menu-title">Report & Request</span>
+            </a>
+        </li>
+    </ul>
+    <div class="side-footer">
+        <b>2024 &copy; SalimTech </b>
+    </div>
+</aside>

@@ -1,0 +1,27 @@
+<section id="resume" class="resume">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|safe}}
+    {%- endmacro %}
+    {% set resume = getContent('resume.content', true) %}
+    {% set resumes = getContent('resume.element', false, None,true) %}
+    <div class="container">
+        <div class="section-title">
+            <h2>{{__(resume.data_values.heading)}}</h2>
+            <p></p>
+        </div>
+
+        <div class="row">
+            {% for ele in resumes %}
+            {% if loop.index == 1 or loop.index == 3 %}
+            <div class="col-lg-6" data-aos="fade-up" {%if loop.index == 3%}data-aos-delay="100"{% endif %}>
+            {% endif %}
+                <h3 class="resume-title">{{ele.data_values.resume_title}}</h3>
+                {{__(ele.data_values.resume_item)}}
+            {% if loop.index == 2 or loop.index == 3 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+</section>

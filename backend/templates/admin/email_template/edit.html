@@ -1,0 +1,71 @@
+{% extends 'admin/layouts/app.html' %}
+{% block panel %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body p-0">
+                    <div class="table-responsive table-responsive--sm">
+                        <table class="table align-items-center table--light">
+                            <thead>
+                            <tr>
+                                <th>Short Code</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                                {% for shortcode, key in email_template.shortcodes.items() %}
+                                <tr>
+                                    <th data-label="Short Code">{{"{{"+shortcode+"}}"}}</th>
+                                    <td data-label="Description">{{ key }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="100%" class="text-muted text-center">{{ emptyMessage }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- card end -->
+        </div>
+
+        <div class="col-md-12">
+            <div class="panel panel-default mt-5">
+                <div class="panel-heading bg--dark">
+                    <h5 class="panel-title text-white">{{ pageTitle }}</h5>
+                </div>
+                <form action="{{ url_for('email.template.update', id=email_template.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="panel-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label class="font-weight-bold">Subject <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control input-lg" placeholder="Email subject" name="subject" value="{{ email_template.subj }}"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Status <span class="text-danger">*</span></label>
+                                <input type="checkbox" data-height="46px" data-width="100%" data-onstyle="success"
+                                       data-offstyle="danger" data-toggle="toggle" data-on="Send Email"
+                                       data-off="Don't Send" name="email_status"
+                                       {%if email_template.email_status %} checked {% endif %}>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-bold">Message <span class="text-danger">*</span></label>
+                                <textarea name="email_body" rows="10" class="form-control nicEdit" placeholder="Your message using shortcodes">{{ email_template.email_body }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-block btn-primary mr-2">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endblock%}
+
+{% block breadcrumb_plugins %}
+    <a href="{{ url_for('email.template.index') }}" class="btn btn-sm btn-primary box--shadow1 text--small"><i class="fa fa-fw fa-backward"></i> Go Back </a>
+{% endblock %}
+

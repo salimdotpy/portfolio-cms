@@ -1,0 +1,38 @@
+{% extends 'basic/layouts/master.html' %}
+{% block content %}
+<section id="portfolio" class="portfolio section-bg">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|title}}
+    {%- endmacro %}
+    {% set portfolio = getContent('portfolio.content', true) %}
+    {% set portfolios = getContent('portfolio.element', false, None,true) %}
+    <div class="container">
+
+        <div class="section-title">
+          <h2>{{__(portfolio.data_values.heading)}}</h2>
+          <p>{{__(portfolio.data_values.sub_heading)}}</p>
+        </div>
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+            <!-- Start -->
+            {% for ele in portfolios %}
+                <div class="col-lg-4 col-md-6 portfolio-item filter-{{ele.data_values.portfolio_category|lower}}">
+                    <div class="portfolio-wrap">
+                        <img src="{{getImage('assets/images/frontend/portfolio/'+ele.data_values.image_one)}}" class="img-fluid" alt="">
+                        <div class="portfolio-links">
+                            <a href="{{getImage('assets/images/frontend/portfolio/'+ele.data_values.image_one)}}" data-gallery="portfolioGallery"
+                                class="portfolio-lightbox" title="{{ele.data_values.portfolio_category|lower}}"><i class="bx bx-plus"></i></a>
+                            <a href="{{url_for('portfolio.details', id=ele.id)}}" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- End  -->
+        </div>
+    </div>
+</section>
+    {% if section.secs %}
+        {% for sec in section.secs %}
+            {% include 'basic/sections/'+sec+'.html' %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

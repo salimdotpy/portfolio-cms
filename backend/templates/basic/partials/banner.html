@@ -1,0 +1,13 @@
+<!-- ======= Hero Section ======= -->
+{% macro __(s) -%}
+{{s|replace('_',' ')|title}}
+{%- endmacro %}
+{% set hero = getContent('hero.content', true) %}
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center"
+  style="background: url('{{getImage('assets/images/frontend/hero/'+hero.data_values.image)}}') top center;
+  background-size: cover;">
+  <div class="hero-container" data-aos="fade-in">
+    <h1>{{hero.data_values.name}}</h1>
+    <p>I'm <span class="typed" data-typed-items="{{hero.data_values.keywords|join(',')}}"></span></p>
+  </div>
+</section><!-- End Hero -->

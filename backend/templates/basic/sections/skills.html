@@ -1,0 +1,36 @@
+<section id="skills" class="skills section-bg">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|upper}}
+    {%- endmacro %}
+    {% macro _round(n) -%}
+    {{n|round(1,'ceil')|int}}
+    {%- endmacro %}
+    {% set skill = getContent('skills.content', true) %}
+    {% set skills = getContent('skills.element', false, None,true) %}
+    <div class="container">
+
+        <div class="section-title">
+            <h2>{{skill.data_values.heading}}</h2>
+            <p>{{skill.data_values.sub_heading}}</p>
+        </div>
+
+        <div class="row skills-content">
+            {% for ele in skills %}
+            {% if loop.first or loop.index == _round((skills|count/2)+1)|int %}
+            <div class="col-lg-6" data-aos="fade-up" {%if loop.index == _round((skills|count/2)+1)|int%}data-aos-delay="100"{% endif %}>
+            {% endif %}
+            <div class="progress">
+                <span class="skill">{{ele.data_values.skill}} <i class="val">{{ele.data_values.skill_level}}%</i></span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ele.data_values.skill_level}}" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+            </div>
+            {% if loop.index == _round((skills|count/2))|int or loop.last%}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+</section>

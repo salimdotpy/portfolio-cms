@@ -1,0 +1,140 @@
+{% extends 'admin/layouts/app.html' %}
+{% block style_lib %}
+<link rel="stylesheet" href="{{url_for('static',filename='assets/admin/css/bootstrap-iconpicker.min.css')}}">
+<!-- data-table -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/jquery.dataTables.css')}}">
+{% endblock %}{% macro __(s) -%}
+{{s|replace('_',' ')|title}}
+{%- endmacro %}
+{% block panel %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for data in pdata %}
+                                <tr>
+                                    <td data-label="Name">{{ __(data.name) }}</td>
+                                    <td data-label="Slug">{{ __(data.slug) }}</td>
+                                    <td data-label="Action">
+                                        <a href="{{ url_for('manage.section', id=data.id) }}" class="btn btn-primary ml-1" data-toggle="tooltip" data-original-title="Edit"><i class="la la-pen"></i></a>
+                                        {% if data.is_default == 0 %}
+                                            <button class="btn btn-danger ml-1 removeBtn" data-id="{{ data.id }}" data-toggle="tooltip" data-original-title="Delete">
+                                                <i class="las la-trash"></i>
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-muted text-center" colspan="100%">{{ __(emptyMessage) }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table><!-- table end -->
+                    </div>
+                </div>
+            </div><!-- card end -->
+        </div>
+    </div>
+
+    <!-- Add METHOD MODAL -->
+    <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Add New Page</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url_for('manage.pages.save')}}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Page Name</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Page Name" name="name" value="{{name}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label> Slug </label>
+                            <input type="text" class="form-control form-control-lg" name="slug" placeholder="Slug" value="{{slug}}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+     <!-- REMOVE METHOD MODAL -->
+    <div id="removeModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Removal Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url_for('manage.pages.delete') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="id">
+                    <div class="modal-body">
+                        <p>Are you sure to remove this post?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumb_plugins %}
+    <a href="javascript:void(0)" class="btn btn-sm btn-primary box--shadow1 text-small addBtn"><i class="fa fa-fw fa-plus"></i>Add New</a>
+{% endblock %}
+
+{% block script_lib %}
+<script src="{{ url_for('static',filename='assets/admin/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
+<!-- data-table -->
+<script src="{{url_for('static', filename='js/jquery.dataTables.js')}}"></script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        (function ($) {
+            "use strict";
+            $('.table').DataTable();
+            $('.table_wrapper').addClass('table-responsive');
+            $('.removeBtn').on('click', function () {
+                var modal = $('#removeModal');
+                modal.find('input[name=id]').val($(this).data('id'))
+                modal.modal('show');
+            });
+
+            $('.addBtn').on('click', function () {
+                var modal = $('#addModal');
+                modal.find('input[name=id]').val($(this).data('id'))
+                modal.modal('show');
+            });
+
+        })(jQuery);
+
+    </script>
+
+{% endblock %}

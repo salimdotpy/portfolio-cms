@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='assets/global/css/iziToast.min.css') }}">
+<script src="{{ url_for('static', filename='assets/global/js/iziToast.min.js') }}"></script>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for cat, message in messages %}
+    <script>
+        "use strict";
+        // notify('{{cat}}', '{{message}}');
+        iziToast['{{cat}}']({
+            message: '{{message}}',
+            position: "topRight"
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+{% endwith %}
+    
+<script>
+    "use strict";
+    function notify(status,message) {
+        iziToast[status]({
+            message: message,
+            position: "topRight"
+        });
+    }
+    // notify('success', 'check it!');
+</script>

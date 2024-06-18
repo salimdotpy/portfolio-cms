@@ -1,0 +1,56 @@
+{% extends 'admin/layouts/app.html' %}
+{% block panel %}
+    <div class="row mb-none-30">
+        <div class="col-md-12 mb-30">
+            <div class="panel bl--5-primary">
+                <div class="panel-body">
+                    <p class="font-weight-bold text--info">If the logo and favicon are not changed after you update from this page, please clear the cache from your browser. As we keep the filename the same after the update, it may show the old image for the cache. usually, it works after clear the cache but if you still see the old logo or favicon, it may be caused by server level or network level caching. Please clear them too.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-30">
+            <div class="panel">
+                <div class="panel-body">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <div class="image-upload">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <img src="{{getImage(imagePath()['logoIcon']['path']+'/logo.png')}}" width="100%" class="img-thumbnail" style="height: 250px;">
+                                        </div>
+                                        <div class="col-sm-6 mt-sm-0 mt-4">
+                                            <img src="{{getImage(imagePath()['logoIcon']['path']+'/logo.png')}}" width="100%" class="img-thumbnail" style="height: 250px;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="file" class="hidden profilePicUpload" name="logo" id="profilePicUpload1" accept=".png, .jpg, .jpeg" onchange="imgs(this, $(this).parent().parent())"><br>
+                                        <label for="profilePicUpload1" class="btn btn-primary btn-block">Select Logo</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <div class="image-upload">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <img src="{{getImage(imagePath()['logoIcon']['path']+'/favicon.png')}}" width="100%" class="img-thumbnail" style="height: 250px;">
+                                        </div>
+                                        <div class="col-sm-6 mt-sm-0 mt-4">
+                                            <img src="{{getImage(imagePath()['logoIcon']['path']+'/favicon.png')}}" width="100%" class="img-thumbnail" style="height: 250px;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="file" class="hidden profilePicUpload" name="favicon" id="profilePicUpload2" accept=".png" onchange="imgs(this, $(this).parent().parent())"><br>
+                                        <label for="profilePicUpload2" class="btn btn-primary btn-block">Select Favicon</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

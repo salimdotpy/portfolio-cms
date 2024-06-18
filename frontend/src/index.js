@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Vendor CSS Files 
+import "./static/bootstrap-icons/bootstrap-icons.css";
+import "./static/boxicons/css/boxicons.min.css";
+import "./static/css/line-awesome.min.css";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import './static/css/app.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+     <App/>
   </React.StrictMode>
 );
 

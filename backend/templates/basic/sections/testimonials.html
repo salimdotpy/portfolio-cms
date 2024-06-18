@@ -1,0 +1,36 @@
+<section id="testimonials" class="testimonials section-bg">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|title}}
+    {%- endmacro %}
+    {% set testimonial = getContent('testimonials.content', true) %}
+    {% set testimonials = getContent('testimonials.element', false, None,true) %}
+    <div class="container">
+
+        <div class="section-title">
+            <h2>{{__(testimonial.data_values.heading)}}</h2>
+            <p>{{__(testimonial.data_values.sub_heading)}}</p>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper-wrapper">
+
+                {% for ele in testimonials %}
+                <div class="swiper-slide">
+                    <div class="testimonial-item" data-aos="fade-up" {%if not loop.first%}data-aos-delay="{{loop.index-1}}00"{%endif%}>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                            {{ele.data_values.say}}
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                        <img src="{{getImage('assets/images/frontend/testimonials/'+ele.data_values.image)}}" class="testimonial-img" alt="">
+                        <h3>{{ele.data_values.name}}</h3>
+                        <h4>{{ele.data_values.designation}}</h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+</section>

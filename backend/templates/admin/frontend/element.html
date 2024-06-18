@@ -1,0 +1,147 @@
+{% extends 'admin/layouts/app.html' %}
+{% block panel %}
+{% macro __(s) -%}
+{{s|replace('_',' ')|title}}
+{%- endmacro %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+                <form action="{{url_for('sections.content')}}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="type" value="element">
+                    <input type="hidden" name="key" value="{{key}}">
+                    {% if data %}
+                    <input type="hidden" name="id" value="{{data.id}}">
+                    {% endif %}
+                    <div class="row">
+                        {% for k, content in section.element.items() %}
+                        {% if k == 'images' %}
+                        {% for imgKey, image in content.items() %}
+                        <div class="col-md-4">
+                            <input type="hidden" name="has_image[]" value="1">
+                            <div class="form-group">
+                                <label>{{ __(imgKey) }}</label>
+                                <div class="image-upload">
+                                    <div class="">
+                                        <img src="{% if data %}{{getImage('assets/images/frontend/'+key+'/'+data.data_values[imgKey],section.element.images[imgKey].size) }}{% else %}{{getImage('/')}}{% endif %}"
+                                            class="img-thumbnail">
+                                    </div>
+                                    <div>
+                                        <input type="file" class="hidden form-control profilePicUpload"
+                                            name="image_input[{{ imgKey }}]" id="profilePicUpload{{ loop.index }}"
+                                            accept=".png, .jpg, .jpeg" onchange="imgs(this, $(this).parent().parent())"><br>
+                                        <label for="profilePicUpload{{loop.index}}" class="btn btn-primary btn-block">Upload {{
+                                            __(imgKey) }}</label>
+                                        <small class="">Supported files: <b>jpeg, jpg, png</b>.
+                                            {% if section.element.images[imgKey].size %}
+                                            | Will be resized to:
+                                            <b>{{section.element.images[imgKey].size}}</b>
+                                            px.
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="{%if imgCount > 1%}{%else%}col-md-8{%endif%}">
+                            {% elif content == 'icon' %}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ __(k) }}</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control icon" name="{{ k }}"
+                                            value="{{ data.data_values[k] }}" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-defualt iconPicker"
+                                                data-icon="{% if data.data_values[k] %}{{data.data_values[k][10:-6]}}{% else %}las la-home{% endif %}"
+                                                role="iconpicker"></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            {% if content == 'textarea' %}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ __(k) }}</label>
+                                    <textarea rows="10" class="form-control" placeholder="{{ __(k) }}" name="{{k}}"
+                                        required>{% if data %}{{ data.data_values[k]}}{% endif %}</textarea>
+                                </div>
+                            </div>
+
+                            {% elif content == 'textarea-nic' %}
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ __(k) }}</label>
+                                    <textarea rows="10" class="form-control nicEdit" placeholder="{{ __(k) }}"
+                                        name="{{k}}">{% if data %}{{ data.data_values[k]|safe|e}}{% endif %}</textarea>
+                                </div>
+                            </div>
+
+                            {% elif k == 'select' %}
+                            {% set selectName = item.name %}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label  font-weight-bold">{{__(selectName)}}</label>
+                                    <select class="form-control" name="{{selectName}}">
+                                        {% for selectItemKey, selectOption in item.options.items() %}
+                                        <option value="{{selectItemKey}}" {% if
+                                            content.data_values[selectName]==selectItemKey %} selected {% endif %}>
+                                            {{selectOption}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label  font-weight-bold">{{__(k)}}
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="{{k|safe}}" name="{{k}}"
+                                        value="{% if data %}{{data.data_values[k]|safe}}{% endif %}" required />
+                                </div>
+                            </div>
+
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        {% if imgCount %}</div>{%endif%}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if data %}
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                            {% else %}
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Create</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block breadcrumb_plugins %}
+<a href="{{url_for('sections', key=key)}}" class="btn btn-sm btn--primary box--shadow1 text--small"><i
+        class="fa fa-fw fa-backward"></i>Go Back</a>
+{% endblock %}
+
+{% block script_lib %}
+<script src="{{url_for('static', filename='assets/admin/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
+{% endblock %}
+
+{% block script %}
+{{super()}}
+<script>
+    (function ($) {
+        "use strict";
+        $('.iconPicker').iconpicker().on('change', function (e) {
+            $(this).parent().siblings('.icon').val(`<i class="${e.icon}"></i>`);
+        });
+    })(jQuery);
+</script>
+{% endblock %}

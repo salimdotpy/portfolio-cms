@@ -1,0 +1,128 @@
+{% extends 'admin/layouts/master.html' %}
+
+{% block content %}
+    <!-- page-wrapper start -->
+    <div class="page-wrapper">
+        {% include 'admin/partials/sidenav.html' %}
+        {% include 'admin/partials/topnav.html' %}
+        <main class="body-wrapper">
+            <div class="" style="display: flex; align-items: center; flex-direction: row; justify-content: space-between; margin-bottom: 2rem;">
+                <h4 class="page-title">{{pageTitle}}</h4>
+                <div class="text-right">
+                    {% block breadcrumb_plugins %}{% endblock %}
+                </div>
+            </div>
+            {% block panel%}{% endblock %}
+        </main><!-- body-wrapper end -->
+    </div>
+
+{% endblock %}
+{% block script %} 
+<script>
+    "use strict";
+    let searchData = []
+    let aa = $('aside .side-nav').find('a');
+    $.each(aa, function(c, e) {
+        searchData.push({name: $(e).text(), link: $(e).attr('href')?$(e).attr('href'):''})
+    })
+    function search(e) {
+        let searchHtml = $('#searchData'), result = [];
+        searchData.forEach(d => {
+            if (d.name.toLocaleLowerCase().indexOf(e.value.toLocaleLowerCase()) !== -1)
+                result.push(d);
+        });
+        if (result.length > 0) {
+            searchHtml.html(""); let rr='';
+            result.forEach(e => {
+                rr+= `<a href="${e.link}" class="list-group-item">${e.name}</a>`;
+                searchHtml.html(rr)
+            });
+        } else searchHtml.html('<h4 align="center" style="padding: 30px;">No search result!</h4>');
+    }
+</script>
+<script>
+    "use strict";
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('#scrolltop').fadeIn();
+            } else $('#scrolltop').fadeOut();
+        });
+        $('#scrolltop').click(function () {
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+    });
+    function srest(e) {
+        if ($(e).val())
+            window.location.href = window.location.origin + '/' + $(e).val().toLowerCase();
+        return false;
+    }
+    $("#toggle").on("click", function () {
+        $("body").toggleClass("open");
+        $(".collapse").removeClass("in");
+    });
+    $("#mobile").on("click", function () {
+        $("body").toggleClass("mobile-open");
+        $('.side-flow').css('display', 'block').animate({ left: '0' }, 10);
+        $('aside').css('display', 'block').animate({ left: '0' }, 30)
+    });
+    $(window).on("click", function (e) {
+        if (e.target == document.getElementById('aside')) {
+            var s = $('aside'), a = $('.side-flow');
+            $("body").addClass("mobile-open");
+            a.css('display', 'block').animate({ left: -a.width() - 15 }, 10);
+            s.css('display', 'block').animate({ left: -s.width() - 15 }, 10)
+        }
+    });
+    $(document).on('mouseenter mouseleave', '.side-nav li', function (ev) {
+        var body = $('body');
+        var sidebarIconOnly = body.hasClass("open");
+        if (!('ontouchstart' in document.documentElement)) {
+            if (sidebarIconOnly) {
+                var $menuItem = $(this), link = $menuItem.children().first(), sub = $menuItem.find(".collapse");
+                if (ev.type === 'mouseenter') {
+                    link.hasClass('dropdown') ? sub.addClass("in").css('height', 'auto') : sub.removeClass("in");
+                    $menuItem.addClass('hover-open');
+                    link.removeClass('collapsed');
+                } else {
+                    $menuItem.removeClass('hover-open');
+                    sub.removeClass("in");
+                    link.addClass('collapsed');
+                }
+            }
+        }
+    });
+    /* Get the documentElement (<html>) to display the page in fullscreen */
+    let elem = document.documentElement;
+
+    /* View in fullscreen */
+    function openFullscreen(e) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+        }
+        $(e).hide(); $(e).next().show();
+    }
+
+    /* Close fullscreen */
+    function closeFullscreen(e) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+        $(e).hide(); $(e).prev().show();
+    }
+
+</script>
+{% endblock %}

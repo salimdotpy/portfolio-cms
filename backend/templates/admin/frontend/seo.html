@@ -1,0 +1,77 @@
+{% extends 'admin/layouts/app.html' %}
+{% block panel %}
+    <div class="row">
+        <div class="col-lg-12" style="margin-bottom: 2rem;">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form action="{{url_for('sections.content')}}" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="type" value="data">
+                        <input type="hidden" name="seo_image" value="1">
+                        <input type="hidden" name="key" value="seo">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <div class="image-upload">
+                                        <div class="">
+                                            <img src="{{getImage(imagePath().seo.path+'/'+seo.data_values.image,imagePath().seo.size)}}" class="img-thumbnail" width="100%" style="height: 250px;">
+                                        </div>
+                                        <div>
+                                            <input type="file" class="profilePicUpload hidden" name="image_input" id="profilePicUpload1" accept=".png, .jpg, .jpeg" onchange="imgs(this, $(this).parent().parent())"><br>
+                                            <label for="profilePicUpload1" class="btn btn-success btn-block">Upload Image</label>
+                                            <small class="mt-2 text-facebook">Supported files: <b>jpeg, jpg</b>. Image will be resized into {{imagePath().seo.size}}px.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8">
+                                <div class="form-group select-ion">
+                                    <label class="form-control-label font-weight-bold">Meta Keywords</label>
+                                    <small class="ml-2 mt-2 text-facebook">Separate multiple keywords by <code>,</code>comma or <code>enter</code> key</small>
+                                    <select name="keywords[]" class="form-control select2-auto-tokenize"  multiple="multiple" required>
+                                        {% if seo.data_values.keywords %}
+                                            {% for option in seo.data_values.keywords %}
+                                                <option value="{{ option }}" selected>{{ option }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-control-label  font-weight-bold">Meta Description</label>
+                                    <textarea name="description" rows="3" class="form-control" placeholder="SEO meta description" required>{{ seo.data_values.description }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label  font-weight-bold">Social Title</label>
+                                    <input type="text" class="form-control" placeholder="Social Share Title" name="social_title" value="{{ seo.data_values.social_title }}" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label  font-weight-bold">Social Description</label>
+                                    <textarea name="social_description" rows="3" class="form-control" placeholder="Social Share  meta description" required>{{ seo.data_values.social_description }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+{{super()}}
+<script>
+    $('.select2>.select2-container').css('width', '100%');
+    (function ($) {
+        "use strict";
+        $('.select2-auto-tokenize').select2({
+            dropdownParent: $('.select-ion'),
+            tags: true,
+            tokenSeparators: [',']
+        }); 
+    })(jQuery);
+</script>
+{% endblock %}

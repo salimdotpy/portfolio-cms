@@ -1,0 +1,277 @@
+{% extends 'admin/layouts/app.html' %}
+{% block style %}
+<style>
+    ol{
+        padding: 0;
+    }
+    .span4 {
+        width: 300px; 
+    }
+
+    ol li.highlight {
+        background: #000;
+        color: #999999;
+    }
+
+    ol.vertical {
+        margin: 0 0 9px 0;
+        min-height: 10px;
+    }
+    li {
+        line-height: 18px;
+    }
+
+    .icon-move {
+        background-position: -168px -72px;
+    }
+    ol i.icon-move {
+        cursor: pointer;
+    }
+
+    ol {
+        display: block;
+        list-style-type: decimal;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+    .vertical li i {
+        color: #000000;
+        padding-right: 15px;
+    }
+
+    .sec-item li i {
+        color: #000000;
+        padding-right: 15px;
+    }
+
+    .sec-item li i.fa-times{
+        color: #ea5455;
+        padding-right: 15px;
+    }
+
+    ol.vertical li {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+        padding: 10px;
+        color: #e0e0e0;
+        background: #7f7ff7;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+
+    ol.sec-item li {
+        margin: 10px 0;
+        padding: 10px;
+        color: #fff;
+        background: #2e49cc;
+        font-size: 24px;
+        font-weight: 600;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .ol.sec-item li.d-none {
+        display: none !important;}
+        [class*="span"] {
+            float: left;
+            margin-left: 20px;
+        }
+
+        .row {
+            margin-left: -20px;
+            *zoom: 1;
+        }
+        .row {
+            position: relative;
+        }
+        .dragged {
+            position: absolute;
+            top: 0;
+            opacity: 0.5;
+            z-index: 2000;
+            background: #333333;
+            color: #999999;
+        }
+
+        ol.vertical li i.remove-icon{
+            display: none !important;
+        }
+
+        ol.sec-item li i.remove-icon{
+            display: block !important;
+        }
+        ol.sec-item li .manage-content{
+            display: none !important;
+        }
+        ol.vertical li span {
+            font-size: 18px;
+        }
+        .cog-btn i {
+            color: #fff!important
+        }
+        .cog-btn:hover i {
+            color: #000!important
+        }
+        .d-inline-block{
+            display: inline-block;
+        }
+        .mr-auto{
+            margin-right: auto;
+        }
+        .p-0{padding: 0!important;} .m-0{margin: 0!important;}
+</style>
+{% endblock %}
+{% block panel %}
+{% macro __(s) -%}
+{{s|replace('_',' ')|title}}
+{%- endmacro %}
+{% if pdata.is_default == 0 %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{url_for('manage.pages.update')}}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="id" value="{{ pdata.id }}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Page Name</label>
+                                <input type="text" class="form-control form-control-lg" placeholder="Page Name" name="name" value="{{ pdata.name }}"
+                                required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Page Slug</label>
+                                <input type="text" class="form-control form-control-lg" placeholder="Page Slug" name="slug" value="{{ pdata.slug }}"
+                                required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="title">{{__(pdata.name)}} Page</h3>
+                <small class="text-primary">If you face any issue with removing sections, Please click the update button and then remove unnecessary sections and click the update button again.</small>
+            </div>
+
+            <div class="panel-body">
+                <form action="{{url_for('manage.section.update', id=pdata.id)}}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <ol class="simple_with_drop vertical sec-item">
+                        {% if pdata.secs %}
+                        {% for sec in pdata.secs %}
+                        <li class="highlight icon-move item">
+                            <i class="fa fa-arrows-alt"></i>
+                            <span class="d-inline-block text-white"> {{ __(sections[sec].name) }}</span>
+                            <i class="remove-icon fa fa-times"></i>
+                            <input type="hidden" name="secs[]" value="{{sec}}">
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+                    </ol>
+                    <button type="submit" class="btn btn-primary btn-block">Update Now</button>
+                </form>
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-5 mt-md-0 mt-3">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sections</h3>
+                <small class="text-primary">Drag the section to the left side you want to show on the page.</small>
+            </div>
+            <div class="panel-body">
+
+                <ol class="simple_with_no_drop vertical">
+                    {% for k, secs in sections.items() %}
+                    {% if not secs.no_selection %}
+                    <li class="highlight icon-move">
+                            <i class=" fa fa-arrows-alt"></i>
+                            <span class="d-inline-block text-white"> {{__(secs.name)}}</span>
+                            <i class="ml-auto d-inline-block remove-icon fa fa-times"></i>
+                            <input type="hidden" name="secs[]" value="{{k}}">
+                            {% if secs.builder %} 
+                                <div class="d-inline-block manage-content">
+                                    <a href="{{ url_for('sections', key=k) }}" target="_blank" class="btn btn-default text-center text-white cog-btn" style="background: none;"  data-toggle="tooltip" data-original-title="Manage Content">
+                                        <i class="fa fa-cog p-0 m-0"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block breadcrumb_plugins %}
+<a href="{{url_for('manage.pages')}}"  class="btn btn-sm btn-primary box--shadow1 text-small"><i class="la la-backward"></i> Go Back </a>
+{% endblock %}
+
+{% block script_lib %}
+<script src="{{url_for('static',filename='assets/admin/js/jquery-sortable.js')}}"></script>
+{% endblock %}
+
+{% block script %}
+{{super()}}
+<script>
+    (function($) {
+        "use strict";
+        $("ol.simple_with_drop").sortable({
+            group: 'no-drop',
+            handle: '.icon-move',
+            onDragStart: function ($item, container, _super) {
+                    // Duplicate items of the no drop area
+                    if(!container.options.drop){
+                        $item.clone().insertAfter($item);
+                    }
+                    _super($item, container);
+                }
+            });
+        $("ol.simple_with_no_drop").sortable({
+            group: 'no-drop',
+            drop: false
+        });
+        $("ol.simple_with_no_drag").sortable({
+            group: 'no-drop',
+            drag: false
+        });
+        $(".remove-icon").on('click',function(){
+            $(this).parent('.highlight').remove();
+        });
+
+    })(jQuery);
+</script>
+{% endblock %}
