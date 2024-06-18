@@ -17,7 +17,7 @@ function Project(props) {
         fetchWithCSRF('http://localhost:5000/api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data_keys: 'project.element', orderById: 1, 'limit': 4})
+            body: JSON.stringify({ data_keys: 'project.element', orderById: 1, 'limit': 6})
         })
             .then(res => res.json())
             .then(projects => setProjects(projects))
@@ -44,24 +44,24 @@ function Project(props) {
                                     {ele[5] !== "app"?
                                     <>
                                     <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
-                                    <div className='card-body p-0'>
+                                    <div className='card-body p-0 d-flex flex-column'>
                                         <h5 className='card-title mt-3'>{ele[1]}</h5>
                                         <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
-                                        <div className='d-flex justify-content-between'>
+                                        <div className='d-flex justify-content-between mt-auto'>
                                             <a href={ele[4]} className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</a>
                                             <a href={ele[3]} className='btn btn-primary'><i className='la la-github'></i> GitHub</a>
                                         </div>
                                     </div>
                                     </> :
                                     <>
-                                    <div className='d-flex flex-row'>
+                                    <div className='d-flex flex-row pb-3'>
                                         <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
                                         <div className='card-body p-0 ps-3'>
                                             <h5 className='card-title'>{ele[1]}</h5>
                                             <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
                                         </div>
                                     </div>
-                                    <div className='d-flex justify-content-between pt-3 '>
+                                    <div className='d-flex justify-content-between mt-auto'>
                                         <a href={ele[4]} className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</a>
                                         <a href={ele[3]} className='btn btn-primary'><i className='la la-github'></i> GitHub</a>
                                     </div>
