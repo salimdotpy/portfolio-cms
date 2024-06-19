@@ -30,7 +30,7 @@ function Projects(props) {
         }
     }
     return (
-        project && (
+        project && (<>
         <section id="project" className="project">
             <div className="container">
                 <div className="section-title">
@@ -39,13 +39,13 @@ function Projects(props) {
                 </div>
                 <div className="row">
                     {lst && lst.map((ele, i) =>
-                        <div key={i} className="col-lg-4 col-md-6 mb-lg-0 mb-3 d-flex align-items-stretch pb-4" data-aos="fade-up" data-aos-delay={`${i}00`}>
-                            <div className="card  p-3">
+                        <div key={i} className="col-lg-4 col-md-6 d-flex align-items-stretch pb-4" data-aos="fade-up" data-aos-delay={`${i}00`}>
+                            <div className="card p-4">
                                 {ele[5] !== "app"?
                                 <>
                                 <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
                                 <div className='card-body p-0 d-flex flex-column'>
-                                    <h5 className='card-title mt-3'>{ele[1]}</h5>
+                                    <h5 className='card-title mt-4'>{ele[1]}</h5>
                                     <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
                                     <div className='d-flex justify-content-between mt-auto'>
                                         <a href={ele[4]} className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</a>
@@ -54,9 +54,9 @@ function Projects(props) {
                                 </div>
                                 </> :
                                 <>
-                                <div className='d-flex flex-row pb-3'>
+                                <div className='d-flex flex-row pb-5'>
                                     <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
-                                    <div className='card-body p-0 ps-3'>
+                                    <div className='card-body p-0 ps-4'>
                                         <h5 className='card-title'>{ele[1]}</h5>
                                         <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
                                     </div>
@@ -70,9 +70,18 @@ function Projects(props) {
                         </div>
                     )}
                 </div>
-                <Github />
             </div>
-        </section>)
+        </section>
+        <section>
+            <div className='container'>
+                <div className='row'>
+                <div className='col-md-12'>
+                <Github />
+                </div>
+                </div>
+            </div>
+        </section></>
+        )
     );
 }
 
