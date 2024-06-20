@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import GitHubCalendar from "react-github-calendar";
 
 function Github() {
+  const [color, setColor] = useState({});
+  useEffect(()=>{
+    fetch('http://127.0.0.1:5000/api/1')
+    .then(res => res.json())
+    .then(color => setColor(color.base_color))
+    .catch(err => console.error(err));
+ 
+  },[]);
   return (
     <div className="row justify-content-center py-3">
       <h4 className="project-heading pb-2">
@@ -11,7 +19,7 @@ function Github() {
         username="salimdotpy"
         blockSize={15}
         blockMargin={5}
-        color="#c084f5"
+        color={'#'+color}
         fontSize={16}
       />
     </div>
