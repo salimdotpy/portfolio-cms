@@ -65,25 +65,9 @@ class EmailSMSTemplate(db.Model):
             "sms_body": self.sms_body, "shortcodes": eval(self.shortcodes), "email_status": self.email_status,
             "sms_status": self.sms_status, "created_at": self.created_at, "updated_at": self.updated_at
         }
-
-class Extension(db.Model):
-    __tablename__ = 'extensions'
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    act = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), nullable=False)
-    name = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), nullable=False)
-    description = db.Column(db.Text(collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    image = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    script = db.Column(db.Text(collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    shortcode = db.Column(db.Text(collation='utf8mb4_unicode_ci'), default=None, nullable=True, comment='object')
-    support = db.Column(db.Text(collation='utf8mb4_unicode_ci'), default=None, nullable=True, comment='help section')
-    status = db.Column(db.Boolean, nullable=False, default=True, comment='1=>enable, 2=>disable')
-    deleted_at = db.Column(db.DateTime, default=None, nullable=True)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-
+    
 class Frontend(db.Model):
-    __tablename__ = "fronts"
+    __tablename__ = "frontends"
     id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
     data_keys = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), nullable=False)
     data_values = db.Column(db.Text(collation='utf8mb4_unicode_ci'), nullable=False)
@@ -134,17 +118,6 @@ class GeneralSetting(db.Model):
     created_at = db.Column(db.TIMESTAMP, nullable=True)
     updated_at = db.Column(db.TIMESTAMP, nullable=True)
 
-class Language(db.Model):
-    __tablename__ = "languages"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    name = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), nullable=False)
-    code = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), nullable=False)
-    icon = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    text_align = db.Column(db.Boolean, nullable=False, default=False, comment='0: left to right text align, 1: right to left text align')
-    is_default = db.Column(db.Boolean, nullable=False, default=False, comment='0: not default language, 1: default language')
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
 class Page(db.Model):
     __tablename__ = "pages"
     id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
@@ -174,64 +147,6 @@ class PasswordReset(db.Model):
     token = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), nullable=False)
     created_at = db.Column(db.TIMESTAMP, nullable=True)
 
-class Send(db.Model):
-    __tablename__ = "sends"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    trx = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    wallet_id = db.Column(db.Integer, nullable=False)
-    receive_wallet = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), nullable=False)
-    amount = db.Column(db.DECIMAL(18, 8), nullable=False)
-    charge = db.Column(db.DECIMAL(5, 2), nullable=False)
-    status = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), nullable=False, comment='0=>Pending, 1=>Completed')
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-class SupportAttachment(db.Model):
-    __tablename__ = "support_attachments"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    support_message_id = db.Column(db.Integer, nullable=False)
-    attachment = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-class SupportMessage(db.Model):
-    __tablename__ = "support_messages"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    supportticket_id = db.Column(db.Integer, nullable=False, default=0)
-    admin_id = db.Column(db.Integer, nullable=False, default=0)
-    message = db.Column(db.Text(collation='utf8mb4_unicode_ci'), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-class SupportTicket(db.Model):
-    __tablename__ = "support_tickets"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, default=0)
-    name = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    email = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    ticket = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    subject = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    status = db.Column(db.Boolean, nullable=False, comment='0: Open, 1: Answered, 2: Replied, 3: Closed')
-    priority = db.Column(db.Boolean, nullable=False, default=0, comment='1 = Low, 2 = medium, 3 = high')
-    last_reply = db.Column(db.DateTime, default=None)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-class Transaction(db.Model):
-    __tablename__ = "transactions"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer(), nullable=False, default=0)
-    wallet_id = db.Column(db.Integer, default=0)
-    amount = db.Column(db.DECIMAL(28, 8), nullable=False, default=0.00000000)
-    charge = db.Column(db.DECIMAL(28, 8), nullable=False, default=0.00000000)
-    post_balance = db.Column(db.DECIMAL(28, 8), nullable=False, default=0.00000000)
-    trx_type = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    trx = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    details = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
@@ -257,34 +172,4 @@ class User(db.Model):
     remember_token = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
     created_at = db.Column(db.TIMESTAMP, nullable=True)
     updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-class UserLogin(db.Model):
-    __tablename__ = "user_logins"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, nullable=False, default=0)
-    user_ip = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    city = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    country = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    country_code = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    longitude = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    latitude = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    browser = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    os = db.Column(db.String(40, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-class UserWallet(db.Model):
-    __tablename__ = "user_wallets"
-    id = db.Column(db.BigInteger(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    name = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), default=None, nullable=True)
-    coin_code = db.Column(db.String(15, collation='utf8mb4_unicode_ci'), nullable=False)
-    wallet_address = db.Column(db.String(255, collation='utf8mb4_unicode_ci'), nullable=False)
-    balance = db.Column(db.DECIMAL(18, 8), default=0.00000000)
-    last_cron = db.Column(db.Integer, nullable=False, default=0)
-    created_at = db.Column(db.TIMESTAMP, nullable=True)
-    updated_at = db.Column(db.TIMESTAMP, nullable=True)
-
-# Create the table
-# db.create_all()
 

@@ -54,7 +54,7 @@ function Projects(props) {
                                 </div>
                                 </> :
                                 <>
-                                <div className='d-flex flex-row pb-5'>
+                                <div className='d-flex flex-row pb-4'>
                                     <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
                                     <div className='card-body p-0 ps-4'>
                                         <h5 className='card-title'>{ele[1]}</h5>

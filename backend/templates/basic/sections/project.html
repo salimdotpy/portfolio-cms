@@ -1,0 +1,48 @@
+<section id="project" class="project section-bg">
+    {% macro __(s) -%}
+    {{s|replace('_',' ')|title}}
+    {%- endmacro %}
+    {% set project = getContent('project.content', true) %}
+    {% set projects = getContent('project.element', false, None,true) %}
+    <div class="container">
+
+        <div class="section-title">
+          <h2>{{__(project.data_values.heading)}}</h2>
+          <p>{{__(project.data_values.sub_heading)}}</p>
+        </div>
+
+        <div class="row">
+            <!-- Start -->
+            {% for ele in projects %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch pb-4" data-aos="fade-up" data-aos-delay="{{loop.index+1}}00">
+                    <div class="card p-4">
+                        {% if ele.data_values.category|lower != "app" %}
+                    <img src="{{getImage('assets/images/frontend/project/'+ele.data_values.image_one)}}" class="card-img-top" alt="">
+                    <div class='card-body p-0 d-flex flex-column'>
+                        <h5 class='card-title mt-4'>{{ele.data_values.title}}</h5>
+                        <p class='card-text' style="text-align: justify">{{ele.data_values.description}}</p>
+                        <div class='d-flex justify-content-between mt-auto'>
+                            <a href="{{ele.data_values.demo_link}}" class='btn btn-outline-primary'><i class='las la-globe'></i> Demo</a>
+                            <a href="{{ele.data_values.github_link}}" class='btn btn-primary'><i class='la la-github'></i> GitHub</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class='d-flex flex-row pb-5'>
+                        <img src="{{getImage('assets/images/frontend/project/'+ele.data_values.image_one)}}" class='card-img-top align-self-start' alt='' style=" width: 40%"/>
+                        <div class='card-body p-0 ps-4'>
+                            <h5 class='card-title'>{{ele.data_values.title}}</h5>
+                            <p class='card-text' style="text-align: justify">{{ele.data_values.description}}</p>
+                        </div>
+                    </div>
+                    <div class='d-flex justify-content-between mt-auto'>
+                        <a href="{{ele.data_values.demo_link}}" class='btn btn-outline-primary'><i class='las la-globe'></i> Demo</a>
+                        <a href="{{ele.data_values.github_link}}" class='btn btn-primary'><i class='la la-github'></i> GitHub</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <!-- End  -->
+        </div>
+    </div>
+</section>

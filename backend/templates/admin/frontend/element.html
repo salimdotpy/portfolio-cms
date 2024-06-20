@@ -130,6 +130,15 @@
         class="fa fa-fw fa-backward"></i>Go Back</a>
 {% endblock %}
 
+{% block style %}
+{{super()}}
+<style>
+    div.nicEdit-main {
+        padding: 6px 12px;
+    }
+</style>
+{% endblock %}
+
 {% block script_lib %}
 <script src="{{url_for('static', filename='assets/admin/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
 {% endblock %}

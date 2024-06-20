@@ -40,7 +40,7 @@ function Project(props) {
                     <div className="row">
                         {lst && lst.map((ele, i) =>
                             <div key={i} className="col-lg-4 col-md-6 mb-lg-0 mb-3 d-flex align-items-stretch pb-4" data-aos="fade-up" data-aos-delay={`${i}00`}>
-                                <div className="card p-3">
+                                <div className="card p-4">
                                     {ele[5] !== "app"?
                                     <>
                                     <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
@@ -54,7 +54,7 @@ function Project(props) {
                                     </div>
                                     </> :
                                     <>
-                                    <div className='d-flex flex-row pb-3'>
+                                    <div className='d-flex flex-row pb-4'>
                                         <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
                                         <div className='card-body p-0 ps-3'>
                                             <h5 className='card-title'>{ele[1]}</h5>
