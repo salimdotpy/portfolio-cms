@@ -1,8 +1,19 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { fetchWithCSRF } from './Fetch';
+import { Link } from 'react-router-dom';
 
 function Footer(props) {
     const toTopRef = useRef(null);
+    const [footer, setFooter] = useState(null);
     useEffect(() => {
+        fetchWithCSRF('http://localhost:5000/api', {
+            method: 'POST',
+            body: JSON.stringify({ data_keys: 'footer.element', orderById: 1 })
+        })
+        .then(res => res.json())
+        .then(footer => setFooter(footer))
+        .catch(err => console.error(err));
+
         const toggleBacktotop = () => {
             if (window.scrollY > 100) {
                 toTopRef.current.classList.add('active')
@@ -14,6 +25,13 @@ function Footer(props) {
         document.addEventListener('scroll', toggleBacktotop)
     }, [toTopRef]);
 
+    let lst = [];
+    if (footer) {
+        for (let i of footer) {
+            const txt = {__html:i.data_values.social_icon};
+            lst.push([i.data_values.social_link, i.data_values.social_name, txt])
+        }
+    }
     return (
         <>
             <footer id="footer">
@@ -24,11 +42,11 @@ function Footer(props) {
                         </div>
                     </div>
                     <div className="social-links text-center text-md-right pt-3 pt-md-0">
-                        <a href="/" className="twitter"><i className="bx bxl-twitter"></i></a>
-                        <a href="/" className="facebook"><i className="bx bxl-facebook"></i></a>
-                        <a href="/" className="instagram"><i className="bx bxl-instagram"></i></a>
-                        <a href="/" className="google-plus"><i className="bx bxl-skype"></i></a>
-                        <a href="/" className="linkedin"><i className="bx bxl-linkedin"></i></a>
+                        {lst && lst.map((ele, i) =>
+                        <Link key={i} target='_blank' to={ele[0]} className={ele[1]}>
+                            <code dangerouslySetInnerHTML={ele[2]}></code>
+                        </Link>
+                        )}
                     </div>
                 </div>
             </footer>

@@ -169,5 +169,16 @@
             "phone": "text",
             "map_source": "text"
         }
+    },
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Footer Section",
+        "element":{
+            "social_name": "text",
+            "social_link": "text",
+            "social_icon": "icon",
+            "modal":true
+        }
     }
 }
