@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from Controller.Admin.AdminController import AdminController
 from Controller.Admin.FrontendController import FrontController
