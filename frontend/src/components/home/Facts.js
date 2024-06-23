@@ -6,7 +6,7 @@ function Facts(props) {
     const [fact, setFact] = useState(null);
     const [facts, setFacts] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'facts.content', singleQuery: 1 })
@@ -14,7 +14,7 @@ function Facts(props) {
             .then(res => res.json())
             .then(fact => setFact(fact.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'facts.element', orderById: 1 })

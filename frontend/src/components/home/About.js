@@ -5,7 +5,7 @@ function About(props) {
     const [about, setAbout] = useState(null);
     const [abouts, setAbouts] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'POST',
             body: JSON.stringify({ data_keys: 'about.content', singleQuery: 1 })
         })
@@ -13,7 +13,7 @@ function About(props) {
         .then(about => setAbout(about.data_values))
         .catch(err => console.error(err));
 
-        fetchWithCSRF('http://localhost:5000/api',{
+        fetchWithCSRF('api',{
           method: 'POST',
           body: JSON.stringify({ data_keys: 'about.element', orderById: 1 })
         })
@@ -39,7 +39,7 @@ function About(props) {
 
                     <div className="row">
                         <div className="col-lg-4" data-aos="fade-right">
-                            <img src={`http://127.0.0.1:5000/static/assets/images/frontend/about/${about.image}`} className="img-fluid" alt="about-img"/>
+                            <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/about/${about.image}`} className="img-fluid" alt="about-img"/>
                         </div>
                         <div className="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
                             <h3>{about.skill}</h3>

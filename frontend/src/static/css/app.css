@@ -41,21 +41,64 @@ body.dark {
 }
 
 .tiny-scroll::-webkit-scrollbar {
-    width: 3px;
+    width: 7px;
 }
 
 .tiny-scroll::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--primary-color);
 }
 
 .tiny-scroll::-webkit-scrollbar-thumb {
-    background: #ddd;
-    border-radius: 25px;
+    background: rgba(var(--rgb-s-color), .8);
+    border-radius: 20px;
 }
 
 .tiny-scroll::-webkit-scrollbar-thumb:hover {
-    background: #ccc;
+    background: rgba(var(--rgb-s-color), 1);
 }
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: rgba(var(--rgb-p-color), 0.4);
+  }
+  
+  #preloader:before {
+    content: "";
+    position: fixed;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    border: 6px solid var(--primary-color);
+    border-top-color: rgba(var(--rgb-p-color), 0.3);
+    border-bottom-color: rgba(var(--rgb-p-color), 0.3);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: animate-preloader 1s linear infinite;
+  }
+  
+  @keyframes animate-preloader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }  
+  
+  #no-scroll {
+    overflow: hidden;
+    height: 100vh;
+  }
 
 /*--------------------------------------------------------------
 # Back to top button

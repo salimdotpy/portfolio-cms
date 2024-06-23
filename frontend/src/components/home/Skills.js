@@ -6,7 +6,7 @@ function Skills(props) {
     const [skill, setSkill] = useState(null);
     const [skills, setSkills] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'skills.content', singleQuery: 1 })
@@ -14,7 +14,7 @@ function Skills(props) {
             .then(res => res.json())
             .then(skill => setSkill(skill.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'skills.element', orderById: 1 })

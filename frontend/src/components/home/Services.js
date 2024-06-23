@@ -5,7 +5,7 @@ function Services(props) {
     const [service, setService] = useState(null);
     const [services, setServices] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'services.content', singleQuery: 1 })
@@ -13,7 +13,7 @@ function Services(props) {
             .then(res => res.json())
             .then(service => setService(service.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'services.element', orderById: 1 })

@@ -11,7 +11,7 @@ function Testimonials(props) {
     const [testimonial, setTestimonial] = useState(null);
     const [testimonials, setTestimonials] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'testimonials.content', singleQuery: 1 })
@@ -19,7 +19,7 @@ function Testimonials(props) {
             .then(res => res.json())
             .then(testimonial => setTestimonial(testimonial.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'testimonials.element', orderById: 1 })
@@ -60,7 +60,7 @@ function Testimonials(props) {
                                         {ele[0]}
                                         <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                     </p>
-                                    <img src={`http://127.0.0.1:5000/static/assets/images/frontend/testimonials/${ele[1]}`} className="testimonial-img" alt="" />
+                                    <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/testimonials/${ele[1]}`} className="testimonial-img" alt="" />
                                     <h3>{ele[2]}</h3>
                                     <h4>{ele[3]}</h4>
                                 </div>

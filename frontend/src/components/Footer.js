@@ -6,7 +6,7 @@ function Footer(props) {
     const toTopRef = useRef(null);
     const [footer, setFooter] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'POST',
             body: JSON.stringify({ data_keys: 'footer.element', orderById: 1 })
         })
@@ -23,8 +23,9 @@ function Footer(props) {
         }
         window.addEventListener('load', toggleBacktotop)
         document.addEventListener('scroll', toggleBacktotop)
-    }, [toTopRef]);
 
+    }, [toTopRef]);
+    
     let lst = [];
     if (footer) {
         for (let i of footer) {
@@ -49,7 +50,7 @@ function Footer(props) {
                         )}
                     </div>
                 </div>
-            </footer>
+            </footer> 
             <a href="/#" ref={toTopRef} className="back-to-top d-flex align-items-center justify-content-center"><i
                 className="bi bi-arrow-up-short"></i></a>
         </>

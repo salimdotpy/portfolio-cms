@@ -5,7 +5,7 @@ function Resume(props) {
     const [resume, setResume] = useState(null);
     const [resumes, setResumes] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'resume.content', singleQuery: 1 })
@@ -13,7 +13,7 @@ function Resume(props) {
             .then(res => res.json())
             .then(resume => setResume(resume.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'resume.element', orderById: 1 })

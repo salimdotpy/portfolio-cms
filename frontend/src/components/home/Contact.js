@@ -4,7 +4,7 @@ import { fetchWithCSRF } from '../Fetch';
 function Contact(props) {
     const [contact, setContact] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'contact.content', singleQuery: 1 })

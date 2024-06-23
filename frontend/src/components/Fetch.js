@@ -1,6 +1,6 @@
 const fetchCsrfToken = async () => {
     try {
-        const response = await fetch('http://localhost:5000/get-csrf-token', {
+        const response = await fetch('https://salimtech.pythonanywhere.com/get-csrf-token', {
             method: 'GET',
             credentials: 'include'
         });
@@ -16,7 +16,7 @@ const fetchWithCSRF = async (url, options = {}) => {
 
     if (csrfToken) {
         try {
-            const response = await fetch(url, {
+            const response = await fetch(`https://salimtech.pythonanywhere.com/${url}`, {
                 ...options,
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ const fetchWithCSRF = async (url, options = {}) => {
             });
             return response;
         } catch (error) {
-            console.error('Error fetching image name:', error);
+            console.error('Error fetching data:', error);
         }
     }
 };
 
-export { fetchWithCSRF };
+export { fetchWithCSRF, fetchCsrfToken };

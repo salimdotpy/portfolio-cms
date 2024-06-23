@@ -5,7 +5,7 @@ function Portfolio(props) {
     const [portfolio, setPortfolio] = useState(null);
     const [portfolios, setPortfolios] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'portfolio.content', singleQuery: 1 })
@@ -13,7 +13,7 @@ function Portfolio(props) {
             .then(res => res.json())
             .then(portfolio => setPortfolio(portfolio.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'portfolio.element', orderById: 1 })

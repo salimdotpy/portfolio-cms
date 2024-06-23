@@ -6,7 +6,7 @@ function Projects(props) {
     const [project, setProject] = useState(null);
     const [projects, setProjects] = useState(null);
     useEffect(() => {
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'project.content', singleQuery: 1 })
@@ -14,7 +14,7 @@ function Projects(props) {
             .then(res => res.json())
             .then(project => setProject(project.data_values))
             .catch(err => console.error(err));
-        fetchWithCSRF('http://localhost:5000/api', {
+        fetchWithCSRF('api', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data_keys: 'project.element', orderById: 1 })
@@ -43,7 +43,7 @@ function Projects(props) {
                             <div className="card p-4">
                                 {ele[5] !== "app"?
                                 <>
-                                <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
+                                <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
                                 <div className='card-body p-0 d-flex flex-column'>
                                     <h5 className='card-title mt-4'>{ele[1]}</h5>
                                     <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
@@ -55,7 +55,7 @@ function Projects(props) {
                                 </> :
                                 <>
                                 <div className='d-flex flex-row pb-4'>
-                                    <img src={`http://127.0.0.1:5000/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
+                                    <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
                                     <div className='card-body p-0 ps-4'>
                                         <h5 className='card-title'>{ele[1]}</h5>
                                         <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
