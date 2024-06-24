@@ -43,7 +43,7 @@ function Projects(props) {
                             <div className="card p-4">
                                 {ele[5] !== "app"?
                                 <>
-                                <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
+                                <img src={`https://salimtech.pythonanywhere.com/mysite/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top' alt=''/>
                                 <div className='card-body p-0 d-flex flex-column'>
                                     <h5 className='card-title mt-4'>{ele[1]}</h5>
                                     <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
@@ -55,7 +55,7 @@ function Projects(props) {
                                 </> :
                                 <>
                                 <div className='d-flex flex-row pb-4'>
-                                    <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
+                                    <img src={`https://salimtech.pythonanywhere.com/mysite/static/assets/images/frontend/project/${ele[0]}`} className='card-img-top align-self-start' alt='' style={{ width: "40%" }} />
                                     <div className='card-body p-0 ps-4'>
                                         <h5 className='card-title'>{ele[1]}</h5>
                                         <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>

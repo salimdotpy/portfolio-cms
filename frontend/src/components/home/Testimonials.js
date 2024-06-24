@@ -60,7 +60,7 @@ function Testimonials(props) {
                                         {ele[0]}
                                         <i className="bx bxs-quote-alt-right quote-icon-right"></i>
                                     </p>
-                                    <img src={`https://salimtech.pythonanywhere.com/static/assets/images/frontend/testimonials/${ele[1]}`} className="testimonial-img" alt="" />
+                                    <img src={`https://salimtech.pythonanywhere.com/mysite/static/assets/images/frontend/testimonials/${ele[1]}`} className="testimonial-img" alt="" />
                                     <h3>{ele[2]}</h3>
                                     <h4>{ele[3]}</h4>
                                 </div>

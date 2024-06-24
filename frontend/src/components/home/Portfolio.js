@@ -40,7 +40,7 @@ function Portfolio(props) {
                         {lst && lst.map((ele, i) =>
                             <div key={i} className="col-lg-3 col-md-6 mb-lg-0 mb-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay={`${i}00`}>
                                 <div className="card">
-                                    <img src={`http://127.0.0.1:5000/static/assets/images/frontend/portfolio/${ele[0]}`} className='card-img-top' alt='' style={{ height: "270px", width: "100%" }} />
+                                    <img src={`https://salimtech.pythonanywhere.com/mysite/static/assets/images/frontend/portfolio/${ele[0]}`} className='card-img-top' alt='' style={{ height: "270px", width: "100%" }} />
                                     <div className='card-body'>
                                         <h5 className='card-title'>{ele[1]}</h5>
                                         <p className='card-text'>{ele[0]}</p>

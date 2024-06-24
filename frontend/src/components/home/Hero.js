@@ -28,7 +28,7 @@ function Hero(props) {
       }
     return (
         hero && (
-        <section id='hero' className='d-flex flex-column justify-content-center align-items-center' style={{backgroundImage: "url(https://salimtech.pythonanywhere.com/static/assets/images/frontend/hero/"+hero.image+")"}}>
+        <section id='hero' className='d-flex flex-column justify-content-center align-items-center' style={{backgroundImage: "url(https://salimtech.pythonanywhere.com/mysite/static/assets/images/frontend/hero/"+hero.image+")"}}>
             <div className='hero-container' data-aos="fade-in">
                 <h2>Hi there, I'm</h2>
                 <h1>Selim Adekola</h1>
