@@ -4,13 +4,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // Vendor CSS Files 
-import "./static/bootstrap-icons/bootstrap-icons.css";
-import "./static/boxicons/css/boxicons.min.css";
-import "./static/css/line-awesome.min.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import './static/css/app.css';
+import "./static/css/line-awesome.min.css";
+import "./static/bootstrap-icons/bootstrap-icons.css";
+import "./static/boxicons/css/boxicons.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

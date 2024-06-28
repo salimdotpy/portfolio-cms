@@ -43,7 +43,7 @@ function Testimonials(props) {
                         <p>{testimonial.sub_heading}</p>
                     </div>
                     <Swiper modules={[Pagination, Autoplay]}
-                        className='.testimonials-slider' speed={400} 
+                        className='.testimonials-slider' speed={600} loop={true}
                         autoplay={{ delay: 5000, disableOnInteraction: false }} slidesPerView={'auto'}
                         breakpoints={{
                             320: { slidesPerView: 1, spaceBetween: 20 },

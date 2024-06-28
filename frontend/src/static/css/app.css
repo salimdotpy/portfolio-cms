@@ -379,7 +379,7 @@ section:nth-child(even) {
 }
 
 /*--------------------------------------------------------------
-  # Akills
+  # Skills
   --------------------------------------------------------------*/
 .skills .progress {
     height: 60px;
@@ -554,6 +554,9 @@ section:nth-child(even) {
     box-sizing: content-box;
     text-align: center;
     min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .testimonials .testimonial-item .testimonial-img {
@@ -605,6 +608,7 @@ section:nth-child(even) {
     margin-bottom: 35px;
     border-radius: 6px;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    flex-grow: 100;
 }
 
 .testimonials .testimonial-item p::after {
@@ -634,6 +638,10 @@ section:nth-child(even) {
 
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
     background-color: var(--secondary-color);
+}
+
+.swiper-slide {
+    height: auto;
 }
 
 /*--------------------------------------------------------------
