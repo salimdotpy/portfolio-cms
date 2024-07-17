@@ -1,33 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 function Header(props) {
     return (
         <nav id='header' className='navbar shadow fixed-top navbar-light bg-light navbar-expand-lg'>
             <div className='container'>
-                <Link className='navbar-brand' href='/'>SalimTech</Link>
+                <a className='navbar-brand' href='/'>SalimTech</a>
                 <button className='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarNav'>
                     <span className='navbar-toggler-icon'></span>
                 </button>
                 <div className='collapse navbar-collapse' id='navbarNav'>
                     <ul className='navbar-nav ms-auto'>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/'>Home</Link>
+                            <a className='nav-link' href='/'>Home</a>
                         </li>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/#about'>About</Link>
+                            <a className='nav-link' href='/#about'>About</a>
                         </li>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/#project'>Project</Link>
+                            <a className='nav-link' href='/#project'>Project</a>
                         </li>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/#services'>Services</Link>
+                            <a className='nav-link' href='/#services'>Services</a>
                         </li>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/#testimonials'>Testimonials</Link>
+                            <a className='nav-link' href='/#testimonials'>Testimonials</a>
                         </li>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/#contact'>Contact</Link>
+                            <a className='nav-link' href='/#contact'>Contact</a>
                         </li>
                     </ul>
                 </div>

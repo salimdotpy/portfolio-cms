@@ -51,8 +51,8 @@ function Footer(props) {
                     </div>
                 </div>
             </footer> 
-            <Link to="/#" ref={toTopRef} className="back-to-top d-flex align-items-center justify-content-center"><i
-                className="bi bi-arrow-up-short"></i></Link>
+            <a href="/#" ref={toTopRef} className="back-to-top d-flex align-items-center justify-content-center"><i
+                className="bi bi-arrow-up-short"></i></a>
         </>
     );
 }
