@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchWithCSRF } from '../Fetch';
 import Github from './Github';
+import { Link } from 'react-router-dom';
 
 function Projects(props) {
     const [project, setProject] = useState(null);
@@ -48,8 +49,8 @@ function Projects(props) {
                                     <h5 className='card-title mt-4'>{ele[1]}</h5>
                                     <p className='card-text' style={{textAlign: 'justify'}}>{ele[2]}</p>
                                     <div className='d-flex justify-content-between mt-auto'>
-                                        <a href={ele[4]} target='_blank' rel="noreferrer" className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</a>
-                                        <a href={ele[3]} target='_blank' rel="noreferrer" className='btn btn-primary'><i className='la la-github'></i> GitHub</a>
+                                        <Link to={ele[4]} target='_blank' rel="noreferrer" className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</Link>
+                                        <Link to={ele[3]} target='_blank' rel="noreferrer" className='btn btn-primary'><i className='la la-github'></i> GitHub</Link>
                                     </div>
                                 </div>
                                 </> :
@@ -62,9 +63,9 @@ function Projects(props) {
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-between mt-auto'>
-                                    <a href={ele[4]} target='_blank' rel="noreferrer" className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</a>
-                                    <a href={ele[3]} target='_blank' rel="noreferrer" className='btn btn-primary'><i className='la la-github'></i> GitHub</a>
-                                </div>
+                                    <Link to={ele[4]} target='_blank' rel="noreferrer" className='btn btn-outline-primary'><i className='las la-globe'></i> Demo</Link>
+                                    <Link to={ele[3]} target='_blank' rel="noreferrer" className='btn btn-primary'><i className='la la-github'></i> GitHub</Link>
+                                    </div>
                                 </>}
                             </div>
                         </div>
